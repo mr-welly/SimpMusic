@@ -285,6 +285,8 @@
     <string name="lyrics_provider_youtube">Lyrics provided by YouTube</string>
     <string name="lyrics_provider_betterlyrics">Lyrics provided by BetterLyrics</string>
     <string name="limit_player_cache">Limit Player Cache</string>
+    <string name="auto_download_played_songs">Auto-download played songs to Music</string>
+    <string name="auto_download_played_songs_description">Save played tracks to Music/SimpMusic as 320kbps MP3 with cover art and tags</string>
     <string name="unlimited">Unlimited</string>
     <string name="third_party_libraries">Third party libraries</string>
     <string name="description_and_licenses">Description and licenses</string>

@@ -224,6 +224,9 @@ class SettingsViewModel(
     private val _localTrackingEnabled = MutableStateFlow<Boolean>(false)
     val localTrackingEnabled: StateFlow<Boolean> = _localTrackingEnabled
 
+    private val _autoDownloadPlayedSongs = MutableStateFlow<Boolean>(true)
+    val autoDownloadPlayedSongs: StateFlow<Boolean> = _autoDownloadPlayedSongs
+
     private val _blogNotificationEnabled = MutableStateFlow(true)
     val blogNotificationEnabled: StateFlow<Boolean> = _blogNotificationEnabled
 
@@ -331,6 +334,7 @@ class SettingsViewModel(
         getDownloadQuality()
         getVideoDownloadQuality()
         getLocalTrackingEnabled()
+        getAutoDownloadPlayedSongs()
         getBlogNotificationEnabled()
         getAutoBackupEnabled()
         getAutoBackupFrequency()
@@ -342,6 +346,21 @@ class SettingsViewModel(
             )?.let {
                 _fraction.value = it
             }
+        }
+    }
+
+    private fun getAutoDownloadPlayedSongs() {
+        viewModelScope.launch {
+            dataStoreManager.autoDownloadPlayedSongs.collect { enabled ->
+                _autoDownloadPlayedSongs.value = enabled == DataStoreManager.TRUE
+            }
+        }
+    }
+
+    fun setAutoDownloadPlayedSongs(enabled: Boolean) {
+        viewModelScope.launch {
+            dataStoreManager.setAutoDownloadPlayedSongs(enabled)
+            getAutoDownloadPlayedSongs()
         }
     }
 

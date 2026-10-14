@@ -208,6 +208,8 @@ import simpmusic.composeapp.generated.resources.auto_check_for_update
 import simpmusic.composeapp.generated.resources.auto_check_for_update_description
 import simpmusic.composeapp.generated.resources.auto_download_liked_songs
 import simpmusic.composeapp.generated.resources.auto_download_liked_songs_description
+import simpmusic.composeapp.generated.resources.auto_download_played_songs
+import simpmusic.composeapp.generated.resources.auto_download_played_songs_description
 import simpmusic.composeapp.generated.resources.backup
 import simpmusic.composeapp.generated.resources.backup_downloaded
 import simpmusic.composeapp.generated.resources.backup_downloaded_description
@@ -515,6 +517,7 @@ fun SettingScreen(
     val quality by viewModel.quality.collectAsStateWithLifecycle()
     val downloadQuality by viewModel.downloadQuality.collectAsStateWithLifecycle()
     val autoDownloadLikedSongs by viewModel.autoDownloadLikedSongs.collectAsStateWithLifecycle()
+    val autoDownloadPlayedSongs by viewModel.autoDownloadPlayedSongs.collectAsStateWithLifecycle(initialValue = true)
     val videoDownloadQuality by viewModel.videoDownloadQuality.collectAsStateWithLifecycle()
     val keepYoutubePlaylistOffline by viewModel.keepYouTubePlaylistOffline.collectAsStateWithLifecycle()
     val localTrackingEnabled by viewModel.localTrackingEnabled.collectAsStateWithLifecycle(initialValue = false)
@@ -2202,6 +2205,11 @@ fun SettingScreen(
         if (getPlatform() == Platform.Android) {
             item(key = "storage") {
                 SettingGroup(title = stringResource(Res.string.storage)) {
+                    SettingItem(
+                        title = stringResource(Res.string.auto_download_played_songs),
+                        subtitle = stringResource(Res.string.auto_download_played_songs_description),
+                        switch = (autoDownloadPlayedSongs to { viewModel.setAutoDownloadPlayedSongs(it) }),
+                    )
                     SettingItem(
                         title = stringResource(Res.string.player_cache),
                         subtitle = "${playerCache.bytesToMB()} MB",
